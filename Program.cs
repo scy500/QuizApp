@@ -3,7 +3,8 @@
     new Question { Prompt = "What is the capital of Iceland?", Answer = "Reykjavik" },
     new Question { Prompt = "What is the capital of Norway?", Answer = "Oslo" },
     new Question { Prompt = "What do you call chinese characters used in the japanese writing system?", Answer = "Kanji" },
-    new Question { Prompt = "What is the data type called to store integers?", Answer = "int" }
+    new Question { Prompt = "What is the data type called to store integers?", Answer = "int" },
+    new Question { Prompt = "What is the data type called to store a single character?", Answer = "char" }
 };
 
 int score = 0;
@@ -26,14 +27,12 @@ while (isPlaying)
         {
             for (int i = 0; i < questions.Count; i++)
             {
-               //Prüfe ob randomNum schon in showedQuestions ist
+               // Check if randomNum already inside array
                 while (showedQuestions.Contains(randomNum))
                 {
-                    randomNum = random.Next(0, 4);
-                    Thread.Sleep(1000);
+                    randomNum = random.Next(0, questions.Count);
                 }
 
-                Console.WriteLine(randomNum);
                 Console.WriteLine($"Round {i + 1}! Current score: {score}");
                 Console.WriteLine(questions[randomNum].Prompt);
                 userAnswer = Console.ReadLine();
@@ -46,9 +45,10 @@ while (isPlaying)
                     score++;
                 }
                 else Console.WriteLine("Wrong!");
+                Thread.Sleep(1000);
             }
         }
-        Console.WriteLine($"\r\n -------------------- \r\n  The quiz is over! Your score is {score} out of 3!  \r\n  Closing now");
+        Console.WriteLine($"\r\n -------------------- \r\n  The quiz is over! Your score is {score} out of {questions.Count}!  \r\n  Closing now");
         isPlaying = false;
     }
     else Console.WriteLine("Let's play again next time! \r\n  Closing now");
